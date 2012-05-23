@@ -1,0 +1,238 @@
+
+/*
+
+#
+#    MythTV-InfoScreen - long poll server giving MythTV information
+#
+#    Copyright (C) 2012 Andy Boff
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+ */
+
+html, body {
+  display: block;
+  position: absolute;
+  width: 320px;
+  height: 240px;
+  font-family: sans-serif;
+  background-color: #666;
+  color: white;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: none;
+  overflow: hidden;
+}
+
+#imageBackground {
+  background-color: black;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 240px;
+}
+#imageBackground img {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Idle Screen */
+#bigClock {
+  display: block;
+  position: absolute;
+
+  width: 320px;
+  height: 55px;
+  top: 84px;
+  left: 0;
+
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+
+  background-color: rgba(0,0,0,0.6);
+}
+
+#statusIndicators {
+  display: block;
+  position: absolute;
+
+  width: 320px;
+  height: 12px;
+  left: 0;
+  top: 143px;
+
+  background-color: rgba(0,0,0,0.6);
+}
+#statusIndicators .indicator {
+  opacity: 0.3;
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 6px;
+  top: 3px;
+}
+#statusIndicators .active {
+  opacity: 1.0;
+}
+#statusIndicators #indicator1 {
+  background-color: #f00;
+  left: 20px;
+}
+#statusIndicators #indicator2 {
+  background-color: #ff0;
+  left: 90px;
+}
+#statusIndicators #indicator3 {
+  background-color: #0f0;
+  left: 160px;
+}
+#statusIndicators #indicator4 {
+  background-color: #00f;
+  left: 230px;
+}
+#timeUntilNextRecording {
+  background-color: rgba(0,0,0,0.7);
+  border: 1px solid rgba(230,230,230,0.8);
+  color: white;
+  position: absolute;
+  width: 285px;
+  top: 170px;
+  height: 25px;
+  left: 15px;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+
+
+#littleClock {
+  position: absolute;
+  left: 0px;
+  width: 320px;
+  height: 40px;
+  top: 0px;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: rgba(0,0,0,0.6);
+}
+
+#littleNotifications {
+  position: absolute;
+  left: 0px;
+  width: 320px;
+  height: 7px;
+  top: 40px;
+  background-color: rgba(0,0,0,0.8);
+}
+#littleNotifications .indicator {
+  opacity: 0.3;
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  top: 2px;
+}
+#littleNotifications .active {
+  opacity: 1.0;
+}
+#littleNotifications #littleindicator1 {
+  background-color: #f00;
+  left: 20px;
+}
+#littleNotifications #littleindicator2 {
+  background-color: #ff0;
+  left: 90px;
+}
+#littleNotifications #littleindicator3 {
+  background-color: #0f0;
+  left: 160px;
+}
+#littleNotifications #littleindicator4 {
+  background-color: #00f;
+  left: 230px;
+}
+
+#recordings {
+  background-color: rgba(0,0,0,0.8);
+  position: absolute;
+  left: 0px;
+  width: 320px;
+  top: 47px;
+  height: 200px;
+}
+
+.recProgress {
+  display: block;
+  position: relative;
+  margin: 0;
+  width: 320px;
+  height: 38px;
+}
+.recProgress .progressBar {
+  background-color: rgba(0, 10, 200, 0.3);
+  border-right: 3px solid #ffff00;
+  position: absolute;
+  left: 0px;
+  top: 5px;
+  height: 26px;
+  z-index: 5;
+}
+.recProgress .marquee {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 320px;
+  height: 32px;
+  display: block;
+  overflow: hidden;
+  /*overflow-x: -webkit-marquee;
+  overflow-style: marquee;
+  marquee-loop: infinite;
+  marquee-style: scroll;
+  -webkit-marquee-repetition: infinite;
+  -webkit-marquee-style: scroll;*/
+  /*-webkit-marquee-speed: 80;*/
+  /*-webkit-marquee-speed: 40;
+  -webkit-marquee-increment: 1px;*/
+  font-size: 22px;
+  /*font-weight: bold;*/
+  /*border-top: 1px solid rgba(255,255,255,0.6);*/
+  border-bottom: 1px solid #888;
+  padding-bottom: 2px;
+  padding-top: 6px;
+  white-space: nowrap;
+}
+.recProgress .marquee span {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.recProgress .marquee .channel {
+  font-size: 18px;
+  color: #aca;
+}
+.recProgress .marquee .subtitle {
+  font-size: 20px;
+  color: #aac;
+}

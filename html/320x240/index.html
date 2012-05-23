@@ -1,0 +1,86 @@
+<html>
+  <!--
+
+#
+#    MythTV-InfoScreen - long poll server giving MythTV information
+#
+#    Copyright (C) 2012 Andy Boff
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+    -->
+  <head>
+    <title>MythScreen 320x240</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script type="text/javascript">IDENTIFIER="320x240 Display"</script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+
+    <!-- jquery.marquee.js :
+            http://remysharp.com/2008/09/10/the-silky-smooth-marquee/
+            Creative Commons Attribution Noncommercial Share Alike 2.0 UK
+            Author: Remy Sharp
+      -->
+    <script type="text/javascript" src="jquery.marquee.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+
+    <!-- modify identifier if one is specified in the config -->
+    <script type="text/javascript">
+if ('id' in config) {
+  IDENTIFIER=config['id']
+}
+    </script>
+
+    <script type="text/javascript" src="../js/framework.js"></script>
+    <script type="text/javascript" src="worker.js"></script>
+  </head>
+  <body>
+    <div id="imageBackground"></div>
+
+    <!-- Idle screen -->
+    <div id="idleScreen" class="displayGroup">
+      <!-- main display clock -->
+      <div id="bigClock"></div>
+
+      <!-- status indicators -->
+      <div id="statusIndicators">
+        <div id="indicator1" class="indicator"></div>
+        <div id="indicator2" class="indicator"></div>
+        <div id="indicator3" class="indicator"></div>
+        <div id="indicator4" class="indicator"></div>
+      </div>
+
+      <!-- time until next recording -->
+      <div id="timeUntilNextRecording">Loading...</div>
+    </div>
+
+
+
+    <!-- Currently Recording screen -->
+    <div id="currentlyRecordingScreen" class="displayGroup">
+      <!-- main display clock -->
+      <div id="littleClock"></div>
+      <div id="littleNotifications">
+        <div id="littleindicator1" class="indicator"></div>
+        <div id="littleindicator2" class="indicator"></div>
+        <div id="littleindicator3" class="indicator"></div>
+        <div id="littleindicator4" class="indicator"></div>
+      </div>
+
+      <div id="recordings">
+      </div>
+    </div>
+
+  </body>
+</html>

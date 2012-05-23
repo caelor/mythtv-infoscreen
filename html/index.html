@@ -1,0 +1,61 @@
+<html>
+  <!--
+#
+#    MythTV-InfoScreen - long poll server giving MythTV information
+#
+#    Copyright (C) 2012 Andy Boff
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+  -->
+  <head>
+    <title>MythScreen Long Poll Server</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/framework.js"></script>
+    <script type="text/javascript" src="http://www.pionect.nl/res/js/jquery.dump.js"></script>
+  </head>
+  <body>
+    <h1>Server Status</h1>
+    <ul>
+      <li><a href="/info/broker">Message Broker status</a></li>
+      <li><a href="/info/state">State Table status</a></li>
+      <li><a href="/info/mythtv">MythTV status</a></li>
+    </ul>
+
+    <hr/>
+    <h1>Server Messages</h1>
+    <ul id="serverlog">
+    </ul>
+
+
+    <script type="text/javascript">
+  $(document).bind('mythScreen-Ready', function() {
+    $('<li></li>').appendTo($('#serverlog')).text('framework: Connected (' + mythScreen.uuid + ')');
+    mythScreen.subscribeChannel('system.status');
+    mythScreen.subscribeChannel('periodic.time');
+    mythScreen.subscribeChannel('state.misc');
+  });
+
+  $(document).bind('mythScreen-Update', function(e, params) {
+    if (params.channel == 'system.status' || params.channel == 'periodic.time') {
+      $('<li></li>').appendTo($('#serverlog')).text(params.channel + ': ' + params.state);
+    }
+    else {
+      var a = $('<li></li>').appendTo($('#serverlog')).text(params.channel + ': ');
+      $('<p></p>').appendTo(a).dump(params.state);
+    }
+  });
+    </script>
+  </body>
+</html>
