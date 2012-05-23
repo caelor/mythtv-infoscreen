@@ -25,3 +25,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#Images (which may be user contributed, and may not be CC licensed)
+img/*
