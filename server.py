@@ -50,8 +50,14 @@ providers = [
 myScript = sys.argv[0]
 myDir = os.path.dirname(myScript)
 
+myIp = '127.0.0.1'
+myPort = 1234
+if len(sys.argv) > 2:
+    myIp = sys.argv[1]
+    myPort = int(sys.argv[2])
+
 # Create the webserver class, and its various request handler classes.
-server = WebServer('192.168.5.10', 1234, [
+server = WebServer(myIp, myPort, [
   StaticFileHandler(  re.compile('^/static/(.*)$'),                       os.path.join(myDir, 'html')),
   PushMessageChannel( re.compile('^/channel/longpoll/(.*)$'),             broker),
   RegisterHandler(    re.compile('^/channel/register/(.*)$'),             broker),
