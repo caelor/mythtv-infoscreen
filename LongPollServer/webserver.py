@@ -57,6 +57,11 @@ class WebServer:
         body.put(StopIteration)
 
 
+    def shutdown(self):
+        self.server.stop()
+        for h in self.handlers:
+            h.shutdown()
+
     def notFoundError(self, body):
         body.put('''<html><body>
                <h1>404 Error</h1>

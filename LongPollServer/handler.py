@@ -43,3 +43,6 @@ class RequestHandler(object):
                  </body></html>''' % self.__class__.__name__)
         body.put(StopIteration)
 
+    def shutdown(self):
+        pass
+

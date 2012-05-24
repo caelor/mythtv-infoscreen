@@ -26,6 +26,26 @@ from ConnectionProviders import *
 import time
 import re
 import os, sys
+import gevent
+import signal
+
+def finish():
+    print "Shutting down webserver"
+    server.shutdown()
+    
+    print "Shutting down data providers"
+    for p in providers:
+        p.shutdown()
+    
+    print "Shutting down message broker"
+    broker.shutdown()
+    
+    print "Shutting external connections"
+    for c in connections.keys():
+        conn = connections[c]
+        conn.shutdown()
+
+    sys.exit(0)
 
 # Create providers of information/data authorities, etc.
 print "Establishing connections..."
@@ -70,6 +90,13 @@ server = WebServer(myIp, myPort, [
   DebugChannelHandler(re.compile('^/debug/channel/([\w+\.]+)/(\d)$'),     broker)
 ])
 
-while True:
-    time.sleep(10)
+gevent.signal(signal.SIGTERM, finish)
+keepRunning = True
+while keepRunning:
+    try:
+        time.sleep(10)
+    except KeyboardInterrupt:
+        print "Interrupt detected. Shutting down."
+        keepRunning = False
 
+finish()

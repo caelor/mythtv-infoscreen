@@ -36,4 +36,5 @@ class BaseConnection(object):
     def deregisterCallback(self, callback):
         self.messageCallbacks.remove(callback)
 
-
+    def shutdown(self):
+        pass

@@ -79,17 +79,30 @@ class MythTVConnection(BaseConnection):
         self.upcomingChecksum = 0
         self.greenlet = Greenlet.spawn(self._greenlet, self)
 
+    def shutdown(self):
+        super(MythTVConnection, self).shutdown()
+        print "Killing MythTV Greenlet"
+        self.greenlet.kill()
+
+        print "Cleanly disconnecting from MythTV"
+        del self.eventHandler
+        del self.backend
+
 
     def _greenlet(self,actor):
         print "MythTV Greenlet running"
-        while True:
+        keepRunning = True
+        while keepRunning:
             try:
                 print "(MythTV Periodic running)"
                 actor.updateRecordings()
                 actor.updateUpcoming()
                 time.sleep(120)
+            except Greenlet.GreenletExit:
+                keepRunning = False
             except:
                 pass
+        print "MythTV Greenlet finishing."
        
     def _deferredRecordingUpdate(self, actor):
         print "Deferred recording update waiting"

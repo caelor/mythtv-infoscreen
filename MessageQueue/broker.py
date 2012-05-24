@@ -64,6 +64,11 @@ class MessageBroker:
         self.publish(MessageBroker.SYSTEM_CHANNEL, 'Added endpoint %s (%s)' % (ident, description))
         self.endpoints[ident] = Endpoint(self, ident, description)
 
+
+    def shutdown(self):
+        pass
+
+
     def publish(self, channel, message):
         if not(channel in self.channels.keys()):
             self._createChannel(channel)

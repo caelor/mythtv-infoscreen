@@ -42,3 +42,12 @@ class BaseChannelProvider(object):
         print ('Class %s does not implement the _handler method.' % self.__class__.__name__)
         raise NotImplementedError('Class %s does not implement the _handler method.' % self.__class__.__name__)
 
+    def shutdown(self):
+        if self.greenlet:
+            try:
+                self.greenlet.kill()
+            finally:
+                pass
+
+        pass
+
